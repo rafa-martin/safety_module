@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+import rclpy
+from safety_module.input_output import InputOutputNode
+
+def main(args=None):
+    rclpy.init(args=args)
+    minimal_publisher = InputOutputNode()
+    try:
+        rclpy.spin(minimal_publisher)
+    except KeyboardInterrupt:
+        pass
+    minimal_publisher.destroy_node()
+
+
+if __name__ == "__main__":
+    main()

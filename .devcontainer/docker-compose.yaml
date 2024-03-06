@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  workspace:
+    image: robotnik/ros:humble-builder
+    volumes:
+      - type: bind
+        source: ../
+        target: /home/robot/robot_ws/src/safety_module

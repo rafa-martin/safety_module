@@ -1,0 +1,139 @@
+---
+# Description: Default configuration for the nanoscan safety lidar
+
+# Digital inputs to be read
+digital_inputs:
+  config:
+    - name: emergency_stop
+      pin: 2
+    - name: safety_stop
+      pin: 3
+  case:
+    - name: safe
+      inputs:
+        - name: emergency_stop
+          value: false
+        - name: safety_stop
+          value: false
+    - name: emergency_stop
+
+# Digital outputs
+digital_outputs:
+  config:
+    - name: output1
+      pin: 1
+    - name: output2
+      pin: 2
+    - name: output3
+      pin: 3
+    - name: output4
+      pin: 5
+  case:
+    - name: disabled
+      outputs:
+        - name: output1
+          value: false
+        - name: output2
+          value: false
+        - name: output3
+          value: false
+        - name: output4
+          value: false
+    - name: standard-slow
+      outputs:
+        - name: output1
+          value: false
+        - name: output2
+          value: false
+        - name: output3
+          value: false
+        - name: output4
+          value: false
+    - name: standard-fast
+      outputs:
+        - name: output1
+          value: true
+        - name: output2
+          value: false
+        - name: output3
+          value: false
+        - name: output4
+          value: false
+    - name: standard-oor
+      outputs:
+        - name: output1
+          value: false
+        - name: output2
+          value: true
+        - name: output3
+          value: false
+        - name: output4
+          value: false
+    - name: docking_station-slow
+      outputs:
+        - name: output1
+          value: true
+        - name: output2
+          value: true
+        - name: output3
+          value: false
+        - name: output4
+          value: false
+    - name: docking_station-oor
+      outputs:
+        - name: output1
+          value: false
+        - name: output2
+          value: false
+        - name: output3
+          value: true
+        - name: output4
+          value: false
+
+# List of velocity detection limits
+velocity_limits:
+  - name: zero
+    priority: 0
+    velocity: ~
+
+  - name: slow
+    priority: 1
+    velocity:
+      linear:
+        x:
+          min: -0.5
+          max: 0.5
+
+  - name: fast
+    priority: 2
+    velocity:
+      linear:
+        x:
+          min: -1.3
+          max: 1.3
+
+  - name: out_of_range
+    priority: 3
+    velocity:
+      linear:
+        x:
+          min: -2.0
+          max: 2.0
+
+# Configuration for cases
+monitoring_cases:
+  - id: 0
+    name: unknown
+    laser_mode: null
+    operation_mode: null
+    is_safe: null
+    velocity_limit: zero
+    outputs: disabled
+
+  - id: 1
+    name: standard-slow
+    laser_mode: standard
+    operation_mode: autonomous
+    is_safe: true
+    velocity_limit: slow
+    outputs: standard-slow

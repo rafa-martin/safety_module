@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="safety_module" exec="safety_module_node" name="safety_module" output="screen">
+    <param name="config_file" value="$(find-pkg-share safety_module)/config/nanoscan_io.yaml" />
+  </node>
+</launch>

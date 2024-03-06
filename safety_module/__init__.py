@@ -1,0 +1,1 @@
+from .dude import MyClass
